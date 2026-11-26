@@ -1,5 +1,3 @@
-
-
 pipeline {
     agent any
 
@@ -9,6 +7,13 @@ pipeline {
             steps {
                 echo 'Getting application source code'
                 checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application'
+                sh 'ls -la'
             }
         }
 
@@ -22,3 +27,14 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo 'Application deployed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
